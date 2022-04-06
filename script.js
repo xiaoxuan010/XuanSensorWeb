@@ -47,7 +47,8 @@ function newestDataGot(dataObj) {
     }
     else {
         updateTimer = setTimeout(updateData, timeout);
-        mdui.snackbar({ message: "数据已刷新", timeout: 1500 });
+        if(isOnFocus)
+            mdui.snackbar({ message: "数据已刷新", timeout: 1500 });
     }
 }
 

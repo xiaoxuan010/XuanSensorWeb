@@ -116,14 +116,14 @@ function chartComInit() {
         }],
         series: [{
             name: '气温',
-            type: 'line',
+            type: 'scatter',
             yAxisIndex: 1,
-            showSymbol: false
+            symbolSize: 3
         }, {
             name: '相对湿度',
-            type: 'line',
+            type: 'scatter',
             yAxisIndex: 0,
-            showSymbol: false
+            symbolSize: 3
         }]
     };
 
@@ -134,60 +134,4 @@ function chartComInit() {
 function updateData() {
     ajaxJSONP('http://106.55.41.100:419/jsonp/get-newest-data.php?item=0&callback=newestDataGot');
     ajaxJSONP('http://106.55.41.100:419/jsonp/get-list-data.php?item=0&callback=listDataGot');
-
-    // $.ajax({
-    //     method: 'GET',
-    //     url: '/get-newest-data.php',
-    //     success: function (resStr) {
-    //         var dataJ = JSON.parse(resStr);
-    //         if (dataJ.code != 0) {
-    //             return;
-    //         }
-    //         $('#tem-num').text(dataJ.data.tem + '°C');
-    //         $('#hum-num').text(dataJ.data.hum + '%');
-
-    //         var LastUpdateTime = parseInt(dataJ.data.time) * 1000;
-    //         var nextUpdateTime = LastUpdateTime + 35 * 1000;
-    //         var timeout = nextUpdateTime - new Date().getTime();
-    //         clearTimeout(updateTimer);
-    //         if (timeout<-3500){
-    //             console.log('Sensor disconnected');
-    //             return;
-    //         }
-    //         else{
-    //             updateTimer = setTimeout(updateData, timeout);
-    //             mdui.snackbar({ message: "数据已刷新", timeout: 1500 });
-    //         }
-
-    //     }
-    // });
-
-    // $.ajax({
-    //     method: 'GET',
-    //     url: '/get-list-data.php?item=0',
-    //     success: function (resStr) {
-    //         var dataJ = JSON.parse(resStr);
-    //         if (dataJ.code != 0) {
-    //             return;
-    //         }
-    //         $.each(dataJ.data, function (index, value) {
-    //             value[0] *= 1000;
-    //         });
-    //         var dataDivi = Array(Array(), Array());
-    //         for (var i = 0; i < 2; i++) {
-    //             $.each(dataJ.data, function (index, value) {
-    //                 var dataRow = Array(value[0], value[i + 1]);
-    //                 dataDivi[i].push(dataRow);
-    //             });
-    //         }
-    //         var mainOpt = {
-    //             series: [{
-    //                 data: dataDivi[0]
-    //             }, {
-    //                 data: dataDivi[1]
-    //             }]
-    //         };
-    //         mainChart.setOption(mainOpt);
-    //     }
-    // });
 }

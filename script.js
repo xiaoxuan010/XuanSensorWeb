@@ -43,7 +43,7 @@ function newestDataGot(dataObj) {
     var nextUpdateTime = LastUpdateTime + 35 * 1000;
     var timeout = nextUpdateTime - new Date().getTime();
     clearTimeout(updateTimer);
-    if (timeout < -3500) {
+    if (timeout < 0) {
         console.log('Sensor disconnected');
         return;
     }

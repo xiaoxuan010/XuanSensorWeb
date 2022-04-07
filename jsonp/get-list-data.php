@@ -1,5 +1,5 @@
 <?php
-// error_reporting(0);
+error_reporting(0);
 
 $servername = "localhost";
 $username = "xuansensor";
@@ -17,16 +17,17 @@ if ($conn->connect_error) {
     returnJSONP('{"code":1,"message":"Error connected to SQL"}');
 }
 
-$item = $_GET['item'];
+$deltaTime = $_GET['dt'];
 
-if (isset($item)) {
-    if ($item == 0) {
+if (isset($deltaTime)) {
+    if ($deltaTime == 0) {
         $sql = "SELECT * FROM `Sensor01` ORDER BY id ASC";
     } else {
-        $sql = "SELECT * FROM `Sensor01` ORDER BY id DESC LIMIT $item";
+        $targetTime = time() - $deltaTime;
+        $sql = "SELECT * FROM `Sensor01` WHERE time >= $targetTime";
     }
 } else {
-    returnJSONP('{"code":2,"msg":"Error: No query"}');
+    exit('{"code":2,"msg":"Error: No query"}');
 }
 
 $result = $conn->query($sql);

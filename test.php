@@ -12,14 +12,30 @@ if ($conn->connect_error) {
     exit('{"code":1,"message":"Error connected to SQL"}');
 }
 
-$sql = "SELECT * FROM `Sensor01` ORDER BY id DESC LIMIT 1";
+$deltaTime = $_GET['dt'];
+
+if (isset($deltaTime)) {
+    if ($deltaTime == 0) {
+        $sql = "SELECT * FROM `Sensor01` ORDER BY id ASC";
+    } else {
+        $targetTime = time() - $deltaTime;
+        $sql = "SELECT * FROM `Sensor01` WHERE time >= $targetTime";
+    }
+} else {
+    exit('{"code":2,"msg":"Error: No query"}');
+}
+
 $result = $conn->query($sql);
 
 if ($result == false) {
     exit('{"code":3,"msg":"Error getting data from SQL"}');
 } else {
-    $row = $result->fetch_assoc();
-    $data = array("time" => $row['time'],"tem"=>$row["temperature"],"hum"=> $row["humidity"] );
+    $data = array();
+    while ($row = $result->fetch_assoc()) {
+        $dataRow = array((int)$row['time'], (float)$row["temperature"], (float)$row["humidity"]);
+        array_push($data, $dataRow);
+
+    }
     $res = array("code"=>0,"data"=>$data);
     exit(json_encode($res));
 }

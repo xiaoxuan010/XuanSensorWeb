@@ -9,7 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
     <title>XUAN Sensor</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdui@1.0.2/dist/css/mdui.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdui@1.0.2/dist/css/mdui.min.css" />
     <link rel="stylesheet" href="./style.css">
 
 
@@ -20,8 +20,8 @@
         <div class="mdui-toolbar mdui-color-theme">
             <div class="mdui-typo-headline">XUAN </div>
             <div class="mdui-typo-title">监测站</div>
-            <div class="mdui-toolbar-spacer"></div> <button class="mdui-btn mdui-btn-icon mdui-ripple" onclick="updateData();"> <i
-                    class="mdui-icon material-icons">refresh</i> </button>
+            <div class="mdui-toolbar-spacer"></div> <button class="mdui-btn mdui-btn-icon mdui-ripple"
+                onclick="updateData();"> <i class="mdui-icon material-icons">refresh</i> </button>
         </div>
     </div>
     <div class="mdui-container">
@@ -40,6 +40,18 @@
             </span>
             <span class="mdui-chip-title" id="hum-num">77.1%</span>
         </div>
+
+        <!-- 数据筛选 -->
+        <p>数据筛选：
+            <select id="filter-select" class="mdui-select" mdui-select>
+                <option value="0" selected>不筛选</option>
+                <option value="604800">近7天</option>
+                <option value="86400">近24小时</option>
+                <option value="3600">近1小时</option>
+            </select>
+        </p>
+        
+
         <div id="main-chart" style="height: 30em; width: 100%;"></div>
 
         <script src="https://cdn.jsdelivr.net/npm/mdui@1.0.2/dist/js/mdui.min.js"></script>

@@ -15,6 +15,8 @@ window.onblur = function () {
     isOnFocus = false;
 }
 
+$('#filter-select').on("close.mdui.select", function (e) { updateData() });
+
 function globalInit() {
     chartComInit();
     updateData();
@@ -47,7 +49,7 @@ function newestDataGot(dataObj) {
     }
     else {
         updateTimer = setTimeout(updateData, timeout);
-        if(isOnFocus)
+        if (isOnFocus)
             mdui.snackbar({ message: "数据已刷新", timeout: 1500 });
     }
 }
@@ -132,6 +134,6 @@ function chartComInit() {
 }
 
 function updateData() {
-    ajaxJSONP('http://106.55.41.100:419/jsonp/get-newest-data.php?item=0&callback=newestDataGot');
-    ajaxJSONP('http://106.55.41.100:419/jsonp/get-list-data.php?item=0&callback=listDataGot');
+    ajaxJSONP(`http://106.55.41.100:419/jsonp/get-newest-data.php?callback=newestDataGot`);
+    ajaxJSONP(`http://106.55.41.100:419/jsonp/get-list-data.php?dt=${$('#filter-select').val()}&callback=listDataGot`);
 }
